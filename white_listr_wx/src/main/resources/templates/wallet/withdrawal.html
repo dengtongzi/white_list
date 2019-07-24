@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>提现</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+	<style type="text/css">
+		input{
+		    width: 100%;
+		    height: 50px;
+		    margin: 10px 0px;
+		    background: url('../common/image/qian.png') no-repeat;
+		    background-color: #ffffff00;
+		    background-position: 3px;
+		    padding-left: 40px;
+		    border: 1px solid #999999;
+		    outline: none;
+		    border-left-width:0px;
+		    border-top-width:0px;
+		    border-right-width:0px;
+		    font-size: 1.2rem;
+		}
+	</style>
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        	<div class="content">
+				<div class="card" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">
+					<div class="card-header" style="position: initial;background: #9e9e9e; border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem">
+						<span style="margin-top: -1rem">到账微信(<span>1447171806</span>)</span>
+						<span style="font-size: 0.7rem;color: #F4F4F4;margin-top: 1.6rem">24小时到账</span>
+					</div>
+					<div class="card-content">
+						<div class="card-content-inner" style="padding: .5rem;">
+							<span style="font-size: 0.7rem;">提现金额:</span>
+							<span style="font-size: 0.7rem;float: right;">（当前金额2202.02元）</span>
+							<input type="number" id="phone" value=""/>
+							<span style="font-size: 0.7rem;float: right;color: #4D49FF">全部提现</span>
+							<button onclick="clickNext()" style="width: 100%;height: 2.2rem;margin-top: 1.5rem;border-color: #000; color: #FFF; background: #000;" class="button">提 现</button>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+
+  </body>
+</html>

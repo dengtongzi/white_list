@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>抽奖</title>
+    <!-- <meta name="viewport" content="initial-scale=1, maximum-scale=1"> -->
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+    <link rel="stylesheet" href="../layer_mobile/need/layer.css">
+<style type="text/css">
+.container{
+	width:100%;
+	height:auto;
+	text-align: center;
+}
+#lottery{
+	width:90%;
+	height:18rem;
+	margin:auto;
+}
+#lottery table td{
+	text-align:center;
+	vertical-align:middle;
+	font-size:24px;
+	color:#333;
+	font-index:-999;
+	
+}
+#lottery table td.active{
+	background-color:#fff333;
+	border-radius: 10px;
+}
+
+#start {
+	color:white;
+	background:orange;
+	border-radius: 10px;
+	height:1rem;
+	line-height: 1rem;
+	margin: auto;
+	/*margin: 10% 10% 10% 10%;*/
+	text-align: center;
+	display: block;
+	text-decoration: none;
+	border-radius: 10px;
+	height: 4.9rem;
+	width: 98%;
+}
+#pname{
+	color:red;
+	margin-left: 5px;
+	margin-right: 10px;
+	font-size: 20px;
+}
+.prize{
+	background: rgba(255,255,255,0.78);
+	/* opacity: 0.8; */
+	border-radius: 12px;
+	margin: auto;
+	line-height: 6rem;
+	text-shadow: 1px 1px 2px;
+	height: 5rem;
+	width: 98%;
+	box-shadow: 0px 0px 10px red;
+}
+.on{
+	opacity: 1;
+	color:#fff;
+	background: #fff;
+	border-radius: 12px;
+	height: 5rem;
+	width: 98%;
+}
+img{
+	width: 100%;
+	height: 100%;	
+	border-radius: 10px;
+	
+}
+</style>
+</head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current" style="background-image: url('../common/image/bg.png');background-size: 100% 100%;">
+       		<div class="container">
+       			<p align="center"><a href="#" class="button button-danger" style="margin-top: 40%;width: 70%;border-radius: 50px;border-color: rgba(246, 56, 58, 0.1);color:#fff">剩余<span id="drawNumber" style="color: #ffeb3b">0</span>次抽奖机会</a></p>
+				<div id="lottery" style="background-image: url('../common/image/choujiang.png');background-size: 100% 100%;display: -webkit-box;">
+				    <table border="0" cellpadding="0" cellspacing="0" style="width: 85%;height: 15.2rem;margin-top: 1.3rem" align="center">
+				       <tr>
+				            <td class="lottery-unit lottery-unit-0"><div class="prize prize-0"><img src="../common/image/hua20.png" alt="" /></div></td>
+				            <td class="lottery-unit lottery-unit-1"><div class="prize prize-1"><img src="../common/image/quan20.png" alt="" /></div></td>
+				            <td class="lottery-unit lottery-unit-2"><div class="prize prize-2"><img src="../common/image/hua30.png" alt="" /></div></td>
+				        </tr>
+				        <tr>
+				            <td class="lottery-unit lottery-unit-7"><div class="prize prize-7"><img src="../common/image/hua50.png" alt="" /></div></td>
+				            <td ><img class = "lottery-unit" id="start" src="../common/image/start.jpg" alt="" /></td>
+				            <td class="lottery-unit lottery-unit-3"><div class="prize prize-3"><img src="../common/image/quan50.png" alt="" /></div></td>
+				        </tr>
+				        <tr>
+				            <td class="lottery-unit lottery-unit-6"><div class="prize prize-6"><img src="../common/image/quan30.png" alt="" /></div></td>
+				            <td class="lottery-unit lottery-unit-5"><div class="prize prize-5"><img src="../common/image/5.png" alt="" /></div></td>
+				            <td class="lottery-unit lottery-unit-4"><div class="prize prize-4"><img src="../common/image/quan100.png" alt="" /></div></td>
+				        </tr>
+				    </table>
+				</div>
+			</div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='../layer_mobile/layer.js' charset='utf-8'></script>
+	<script type="text/javascript">
+
+
+        var lottery={
+                index:-1,    //当前转动到哪个位置，起点位置
+                count:8,    //总共有多少个奖品位置，9宫格就是8个奖品位置
+                timer:0,    //setTimeout的ID，用clearTimeout清除
+                speed:30,    //初始转动速度
+                times:0,    //转动次数
+                cycle:30,    //转动基本次数：即至少需要转动多少次再进入抽奖环节
+                prize:0,    //默认中奖位置，放默认奖品
+                init:function(id){
+                        if ($("#"+id).find(".lottery-unit").length>0) {
+                                $lottery = $("#"+id);
+                                $units = $lottery.find(".lottery-unit");
+                                this.obj = $lottery;
+                                this.count = $units.length;
+                                $lottery.find(".prize-"+this.index).addClass("on");
+                        };
+                },
+                roll:function(){
+                        var index = this.index;
+                        var count = this.count;
+                        var lottery = this.obj;
+                        $(lottery).find(".prize-"+index).removeClass("on");
+                        index += 1;
+                        if (index>count-1) {
+                            index = 0;
+                        };
+                        $(lottery).find(".prize-"+index).addClass("on");
+                        this.index=index;
+                        return false;
+                    },
+              	stop:function(index){
+                        this.prize=index;
+                        return false;
+                    }
+        };
+
+        //存储奖品信息
+        var prize_data = {
+        	pname:'默认奖品',    //奖品名称
+            pnum:0,    //中奖位置 默认0，重要，转盘据此来定位获奖商品
+            pid:1,    //奖品id 默认1
+        };
+
+        
+        function roll(){
+            lottery.times += 1;
+            lottery.roll();
+            
+            if (lottery.times > lottery.cycle+10 && lottery.prize==lottery.index) {
+                clearTimeout(lottery.timer);
+                lottery.times=0;
+                click=false;
+                //显示中奖信息
+                showDetail();
+            }else{
+            	//速度控制
+                if (lottery.times<lottery.cycle) {
+                    lottery.speed -= 10;
+                }else if(lottery.times==lottery.cycle) {
+                    index = lottery.prize;     
+                }else{
+                    if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
+                        lottery.speed += 110;
+                    }else{
+                        lottery.speed += 20;
+                    }
+                }
+                if (lottery.speed<40) {
+                    lottery.speed=40;
+                };
+                //延时递归调用
+                lottery.timer = setTimeout(roll,lottery.speed);
+                
+            }
+            
+            return false;
+        }
+        /*
+		 * 获取中奖位置
+		 * @param {string} name 用户昵称（必须）
+		 * @param {string} avatar 微信头像网址（必须）
+		 * @param {string} openid 微信openid（必须，用于验证唯一性，一个用户只能抽奖一次）
+		 * @return {bool} 
+		 */
+		function doRoll(url,name,avatar,openid){
+			/* $.ajax({ url: url, data:{name:name,avatar:avatar,openid:openid}, async:false,dataType:'json',success: function(rst){
+				lottery.speed=100;
+		        var data = rst.data;
+		        
+		        lottery.prize = data.pnum;
+		        prize_data = {
+                		pname:data.pname,
+                		pnum:data.pnum,
+                		pid:data.pid
+                	};
+                roll();
+                click=true;
+                return false;
+
+	      	}}); */
+			
+			lottery.speed=100;
+	        var data;
+	        
+	        lottery.prize = 1;
+	        prize_data = {
+            		pname:'安慰奖',
+            		pnum:1,
+            		pid:1
+            	};
+            roll();
+            click=true;
+            return false;
+		}
+
+        //领奖(跳转收货地址页面，或者弹出收货地址页面)
+        function getPrize(){
+        	alert("请填写收货地址");
+        }
+        //清空中奖信息
+        function clearDetail(){
+        	$("#con_prize").hide();
+            $("#pname").html("");
+        }
+        //显示中奖信息
+        function showDetail(){
+        	$("#con_prize").show();
+            $("#pname").html(prize_data.pname);
+        }
+
+        var click=false;
+        init();
+        function init(){
+        	var url = 'http://test.com/api/Shop/ex/';//这里改成实际后台抽奖接口
+            lottery.init('lottery');
+            $("#start").click(function(){
+                if (click) {
+                    return false;
+                }else{
+                	clearDetail();
+                	//doRoll(url,"name","avatar","openid");
+                	if($("#drawNumber").text() == '0'){
+                		selectAlert();
+                	}
+                }
+            });
+        }
+        function selectAlert(str,pickOrSettlementStr){
+			layer.open({
+				style: 'background-color:rgba(0,0,0,0);height: 100%;'
+			    ,content: '<div class="card" style="background-color:rgba(255,255,255,0.8);position: initial;margin-top: 50%;border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">'+
+							'<div class="card-header"align="center" style="height: 2rem;">'+
+								'<span style="color: #333;margin-left: 40%;">提示</span> '+
+							'</div>'+
+							'<div class="card-content"  style="margin-top: 0.5rem;height: 1rem;">'+
+								'<span style="font-size:0.7rem;color: #333">剩余0次机会,还可购买'+str+'次机会</span> '+
+							'</div>'+
+							'<div class="card-header" style="margin-top: 0.5rem;padding: 0.5rem 0.5rem 0.5rem 0.5rem;height: 2rem;position: inherit;">'+
+								'<span><button onclick="closeAll();" style="margin-left: 1rem;border-color: #20C83C; color: #FFF; background: #20C83C;font-size: 0.8rem;" class="button">关 闭</button></span>'+
+								'<span><button onclick="pickOrSettlement(\''+pickOrSettlementStr+'\');" style="margin-right: 1rem;border-color: #FF9935; color: #FFF; background: #FF9935;font-size: 0.8rem;" class="button">购 买</button></span> '+
+							'</div>'+
+						 '</div>'
+			  });
+		}
+        function closeAll(){
+			layer.closeAll();
+		}
+</script>
+  </body>
+</html>

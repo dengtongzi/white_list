@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>存包</title>
+<link rel="stylesheet" type="text/css" href="../common/css/style.css">
+<script src="../common/js/jquery-1.7.1.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body bgcolor="#eeeeee">
+	<div>
+		<div style="width: 100%;height: 50%">
+			<div>
+				<table style="width: 90%;margin-left: 5%;height: 37rem;margin-top: 3rem;border: 0px">
+					<tr style="height: 31rem">
+						<td style="background-image: url('../common/image/scan-pic@2x.png');background-size: 100% 100%;">
+						</td>
+					</tr>
+					<tr>
+						<td align="center" style="background-image: url('../common/image/scanning-bg@2x.png');background-size: 100% 100%;">
+							<span style="color: #fff;font-size: 2.2rem">扫一扫易保宝储物空间二维码</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div style="width: 100%;height: 50%">
+			<div style="text-align:center;width: 100%;height: 50%">
+				<button class="sys-button" id="scanQRCode" onclick="getWeixinResult();" style="margin-top: 40%;width: 90%;height: 120px;border-radius: 10px;"><font style="font-size: 50px">扫 一 扫</font></button>
+			</div>
+		</div>
+		
+	
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			getWeixinParams();
+		});
+		function getWeixinParams(){
+			$.ajax({
+				type:"post",
+				url:"/locker_wx/getSign",
+				data:{
+					putPackageUrl:location.href.split('#')[0]
+				},
+				datatype:"json",
+				success:function(data){
+					var timestamp = data["weixin"]["timestamp"];
+					var noncestr = data["weixin"]["nonceStr"];
+					var signature = data["weixin"]["signature"]
+					getWeixinParamsCallBack(timestamp,noncestr,signature);
+				},
+				error:function(){
+					alert("error");
+				}
+			});
+		}
+		function getWeixinParamsCallBack(timestamp,noncestr,signature){
+			wx.config({
+				debug : false,
+				appId : "wxdb528b0c080dd7ad",
+				timestamp : timestamp,
+				nonceStr : noncestr,
+				signature : signature,
+				jsApiList : ['scanQRCode']
+			});
+			/* wx.ready(function(){
+				alert("成功配置微信JS");
+			}); */
+			/* wx.error(function(res){
+				alert(res);
+			}); */
+		}
+		function getWeixinResult(){
+			wx.scanQRCode({
+				needResult : 1,
+				desc : 'scanQRCode desc',
+				success : function(res){
+					var result = res.resultStr;
+					if(result.indexOf(",")>=0){
+						var tempArray = result.split(",");
+						var tempNum = tempArray[1];
+						alert("1--"+tempNum);
+					}else{
+						window.location.href = "/locker_wx/package/chooseCabinetPage?info=1234"
+					}
+				},
+				error:function(){
+					alert("error");
+				}
+			});
+		}
+	</script>
+</body>
+</html>

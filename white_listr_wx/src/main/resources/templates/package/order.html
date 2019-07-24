@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>订单</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="../layer_mobile/need/layer.css">
+<style type="text/css">
+.buttons-tab .button.active {
+	color: #333;
+	border-color: #FFBA00;
+	font-size: 0.9rem;
+}
+.card-header {
+	font-size: 0.8rem;
+	position: initial;
+	min-height: 1.2rem;
+	padding: 0.5rem 0.5rem 0.01rem 0.5rem;
+}
+.content-block {
+    padding: 0rem;
+    margin: 2.5rem 0 1rem 0;
+}
+.list-block ul {
+	background: #eee;
+}
+</style>
+</head>
+<body>
+	<div class="content">
+		<div class="buttons-tab fixed-tab" style="background: #eee;top:0;z-index: 999999999999">
+			<a href="#tab1" onclick="order();" class="tab-link active button">订单</a> 
+			<a href="#tab2" onclick="orderHistroy();" class="tab-link button">历史订单</a>
+		</div>
+		<div class="content-block" style="color: #333">
+			<div class="tabs">
+				<div id="tab1" class="tab active page" style="" data-ptr-distance="55">
+					<div class="content pull-to-refresh-content infinite-scroll infinite-scroll-bottom" id="tab1_content" data-distance="100">
+						<!-- 默认的下拉刷新层 -->
+					    <div class="pull-to-refresh-layer" style="top:2.2rem">
+					        <div class="preloader"></div>
+					        <div class="pull-to-refresh-arrow"></div>
+					    </div>
+				        <div class="content-block">
+				        	<div class="card-container">
+				                <div class="card" style="margin-bottom:0.5rem;border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">
+									<div class="card-header" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem">
+										<span>订单编号：1213787111</span> 
+										<span>2019-06-10 14:00</span>
+									</div>
+									<div class="card-header" style="">
+										<span>柜子编号：0137112</span> 
+										<span></span>
+									</div>
+									<div class="card-header" style="">
+										<span>预付押金：50.00元</span> 
+										<span></span>
+									</div>
+									<div class="card-header" style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">
+										<span><button onclick="selectAlert('中途取件','pick');" style="border-color: #FF9935; color: #FF9935; background: #FFF;font-size: 0.8rem" class="button">中 途 取 件</button></span> 
+										<span><button onclick="selectAlert('结算','settlement');" style="border-color: #20C83C; color: #20C83C; background: #FFF;font-size: 0.8rem" class="button">结 算</button></span>
+									</div>
+								</div>
+			            	</div>
+				        </div>
+				    </div>
+		        </div>
+				<div id="tab2" class="tab page">
+					<div class="tab2 content infinite-scroll infinite-scroll-bottom" id="tab2Infinite-scroll" data-distance="100">
+						<div class="content-block">
+				        	<div class="card-container" id="tab2Ul">
+				        	</div>
+				        </div>
+						<!-- 加载提示符 -->
+						<div class="content-block-title" style="margin: 0rem 1rem 1rem 1rem;">
+							<span style="margin-left: 35%" id="getMore" onclick="getMore()">点击获取更多 >></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../layer_mobile/layer.js' charset='utf-8'></script>
+	<script type="text/javascript">
+		$.init();
+		// 每次加载添加多少条目
+		var itemsPerLoad = 20;
+		//预先加载20条
+		addItems(itemsPerLoad, 0);
+		function addItems(number, lastIndex) {
+			// 生成新条目的HTML
+			var html = '';
+			for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
+				html += '<div class="card" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">'+
+								'<div class="card-header" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem">'+
+									'<span>订单号：1213787111</span> '+
+									'<span>2019-06-10</span>'+
+								'</div>'+
+								'<div class="card-header" style="">'+
+									'<span>柜子号：0137112</span> '+
+									'<span>￥50.00元</span>'+
+								'</div>'+
+								'<div class="card-header" style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">'+
+									'<span>时间段：14:00-19:00</span> '+
+									'<span><button style="border-radius: 0.2rem;border-color: #8A8A8A; color: #FFF; background: #8A8A8A;font-size: 0.8rem" class="button">完 成</button></span>'+
+								'</div>'+
+							'</div>';
+			}
+			// 添加新条目
+			$('#tab2Ul').append(html);
+		}
+		function getMore(){
+			addItems(itemsPerLoad, 0);
+		}
+		
+		order();
+		function order(){
+			$("#tab1").css("display","block");
+			$("#tab2").css("display","none");
+		}
+		function orderHistroy(){
+			$("#tab2").css("display","block");
+			$("#tab1").css("display","none");
+		}
+		
+		// 添加'refresh'监听器
+		$(document).on('refresh', '.pull-to-refresh-content',function(e) {
+			var str1="中途取件";
+			var str2="结算";
+			var pickOrSettlementStr1="pick";
+			var pickOrSettlementStr2="settlement";
+		    // 模拟2s的加载过程
+		    setTimeout(function() {
+		        var cardNumber = $(e.target).find('.card').length + 1;
+		        var cardHTML = '<div class="card" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">'+
+									'<div class="card-header" style="">'+
+										'<span>订单编号：1213787111</span> '+
+										'<span>2019-06-10 14:00</span>'+
+									'</div>'+
+									'<div class="card-header" style="">'+
+										'<span>柜子编号：0137112</span> '+
+										'<span></span>'+
+									'</div>'+
+									'<div class="card-header" style="">'+
+										'<span>预付押金：50.00元</span> '+
+										'<span></span>'+
+									'</div>'+
+									'<div class="card-header" style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">'+
+										'<span><button onclick="selectAlert(\''+str1+'\',\''+pickOrSettlementStr1+'\');" style="border-color: #FF9935; color: #FF9935; background: #FFF;font-size: 0.8rem" class="button">中途取件</button></span> '+
+										'<span><button onclick="selectAlert(\''+str2+'\',\''+pickOrSettlementStr2+'\');" style="border-color: #20C83C; color: #20C83C; background: #FFF;font-size: 0.8rem" class="button">结算</button></span>'+
+									'</div>'+
+								'</div>';
+
+		        $(e.target).find('.card-container').prepend(cardHTML);
+		        // 加载完毕需要重置
+		        $.pullToRefreshDone('.pull-to-refresh-content');
+		    }, 500);
+		});
+		
+		function selectAlert(str,pickOrSettlementStr){
+			layer.open({
+				style: 'background-color:rgba(0,0,0,0);height: 100%;'
+			    ,content: '<div class="card" style="background-color:rgba(0,0,0,0.7);position: initial;margin-top: 50%;border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">'+
+							'<div class="card-header" style="height: 2rem;">'+
+								'<span style="color: #FFF">柜子编号：201906100001</span> '+
+							'</div>'+
+							'<div class="card-content" style="margin-top: 0.5rem;height: 1rem;">'+
+								'<span style="font-size:1rem;color: #FFF">是否确定'+str+'？</span> '+
+							'</div>'+
+							'<div class="card-header" style="margin-top: 0.5rem;padding: 0.5rem 0.5rem 0.5rem 0.5rem;height: 2rem;">'+
+								'<span><button onclick="closeAll();" style="width: 1.5rem;margin-left: 1rem;border-color: #20C83C; color: #FFF; background: #20C83C;font-size: 0.8rem;" class="button">否</button></span>'+
+								'<span><button onclick="pickOrSettlement(\''+pickOrSettlementStr+'\');" style="width: 1.5rem;margin-right: 1rem;border-color: #FF9935; color: #FFF; background: #FF9935;font-size: 0.8rem;" class="button"> 是 </button></span> '+
+							'</div>'+
+						'</div>'
+			  });
+		}
+		function pickOrSettlement(pickOrSettlementStr){
+			alert("成功");
+			window.location.href = "/locker_wx/amount/paymentPage?info=1234"
+		}
+		function closeAll(){
+			layer.closeAll();
+		}
+	</script>
+</body>
+</html>

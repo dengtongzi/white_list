@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.locker.modular.system.mapper.WhiteListMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.locker.modular.system.entity.WhiteList">
+        <id column="ID" property="id" />
+        <result column="PHONE" property="phone" />
+        <result column="USER_NAME" property="userName" />
+        <result column="BANK_CARD_NUMBER" property="bankCardNumber" />
+        <result column="SUBORDINATE_BRANCH" property="subordinateBranch" />
+        <result column="BRANCH_NETWORK" property="branchNetwork" />
+        <result column="ADD_USER" property="addUser" />
+        <result column="ADD_TIME" property="addTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, PHONE AS phone, USER_NAME AS userName, BANK_CARD_NUMBER AS bankCardNumber, SUBORDINATE_BRANCH AS subordinateBranch, BRANCH_NETWORK AS branchNetwork, ADD_USER AS addUser, ADD_TIME AS addTime
+    </sql>
+    
+	<select id="selectWhiteList" resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from white_list where 1=1
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+        	and ADD_TIME BETWEEN #{startTime} AND #{endTime}
+        </if>
+        <if test="phone != null and phone != '' ">
+        	and PHONE = #{phone} 
+        </if>
+        <if test="userName != null and userName != '' ">
+        	and USER_NAME = #{userName} 
+        </if>
+        <if test="addUser != null and addUser != '' ">
+        	and ADD_USER = #{addUser} 
+        </if>
+        <if test="bankCardNumber != null and bankCardNumber != '' ">
+        	and BANK_CARD_NUMBER = #{bankCardNumber} 
+        </if>
+        <if test="subordinateBranch != null and subordinateBranch != '' ">
+        	and SUBORDINATE_BRANCH = #{subordinateBranch} 
+        </if>
+        order by ADD_TIME desc
+    </select>
+</mapper>

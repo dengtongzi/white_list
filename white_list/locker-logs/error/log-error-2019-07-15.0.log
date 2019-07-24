@@ -1,0 +1,116 @@
+2019-06-16 17:01:25.092 ERROR 10764 --- [restartedMain] o.s.b.web.embedded.tomcat.TomcatStarter  : Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'servletEndpointRegistrar' defined in class path resource [org/springframework/boot/actuate/autoconfigure/endpoint/web/ServletEndpointManagementContextConfiguration$WebMvcServletEndpointManagementContextConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar]: Factory method 'servletEndpointRegistrar' threw exception; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'healthEndpoint' defined in class path resource [org/springframework/boot/actuate/autoconfigure/health/HealthEndpointConfiguration.class]: Unsatisfied dependency expressed through method 'healthEndpoint' parameter 1; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'healthIndicatorRegistry' defined in class path resource [org/springframework/boot/actuate/autoconfigure/health/HealthIndicatorAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.actuate.health.HealthIndicatorRegistry]: Factory method 'healthIndicatorRegistry' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthIndicatorAutoConfiguration': Bean instantiation via constructor failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthIndicatorAutoConfiguration$$EnhancerBySpringCGLIB$$c9f58e19]: Constructor threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/XADataSourceAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine suitable jdbc url
+2019-06-16 17:01:25.176 ERROR 10764 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine suitable jdbc url
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2019-07-15 22:03:57.507 ERROR 32608 --- [restartedMain] c.atomikos.persistence.imp.LogFileLock   : ERROR: the specified log seems to be in use already: tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\. Make sure that no other instance is running, or kill any pending process if needed.
+2019-07-15 22:03:57.574 ERROR 32608 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userTransactionService' defined in class path resource [org/springframework/boot/autoconfigure/transaction/jta/AtomikosJtaConfiguration.class]: Invocation of init method failed; nested exception is com.atomikos.icatch.SysException: Error in init: Log already in use? tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1745)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:576)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at cn.locker.LockerApplication.main(LockerApplication.java:37)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: com.atomikos.icatch.SysException: Error in init: Log already in use? tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\
+	at com.atomikos.icatch.provider.imp.AssemblerImp.createRepository(AssemblerImp.java:181)
+	at com.atomikos.icatch.provider.imp.AssemblerImp.assembleTransactionService(AssemblerImp.java:156)
+	at com.atomikos.icatch.config.Configuration.assembleSystemComponents(Configuration.java:485)
+	at com.atomikos.icatch.config.Configuration.init(Configuration.java:448)
+	at com.atomikos.icatch.config.UserTransactionServiceImp.initialize(UserTransactionServiceImp.java:105)
+	at com.atomikos.icatch.config.UserTransactionServiceImp.init(UserTransactionServiceImp.java:219)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1870)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1813)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1741)
+	... 21 common frames omitted
+Caused by: com.atomikos.recovery.LogException: Log already in use? tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\
+	at com.atomikos.persistence.imp.LogFileLock.acquireLock(LogFileLock.java:59)
+	at com.atomikos.recovery.imp.FileSystemRepository.init(FileSystemRepository.java:55)
+	at com.atomikos.icatch.provider.imp.AssemblerImp.createCoordinatorLogEntryRepository(AssemblerImp.java:229)
+	at com.atomikos.icatch.provider.imp.AssemblerImp.createRepository(AssemblerImp.java:179)
+	... 33 common frames omitted
+
+2019-07-15 22:04:46.921 ERROR 37688 --- [restartedMain] c.atomikos.persistence.imp.LogFileLock   : ERROR: the specified log seems to be in use already: tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\. Make sure that no other instance is running, or kill any pending process if needed.
+2019-07-15 22:04:46.985 ERROR 37688 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userTransactionService' defined in class path resource [org/springframework/boot/autoconfigure/transaction/jta/AtomikosJtaConfiguration.class]: Invocation of init method failed; nested exception is com.atomikos.icatch.SysException: Error in init: Log already in use? tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1745)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:576)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:142)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248)
+	at cn.locker.LockerApplication.main(LockerApplication.java:37)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: com.atomikos.icatch.SysException: Error in init: Log already in use? tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\
+	at com.atomikos.icatch.provider.imp.AssemblerImp.createRepository(AssemblerImp.java:181)
+	at com.atomikos.icatch.provider.imp.AssemblerImp.assembleTransactionService(AssemblerImp.java:156)
+	at com.atomikos.icatch.config.Configuration.assembleSystemComponents(Configuration.java:485)
+	at com.atomikos.icatch.config.Configuration.init(Configuration.java:448)
+	at com.atomikos.icatch.config.UserTransactionServiceImp.initialize(UserTransactionServiceImp.java:105)
+	at com.atomikos.icatch.config.UserTransactionServiceImp.init(UserTransactionServiceImp.java:219)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeCustomInitMethod(AbstractAutowireCapableBeanFactory.java:1870)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1813)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1741)
+	... 21 common frames omitted
+Caused by: com.atomikos.recovery.LogException: Log already in use? tmlog in D:\eclipse-jee-2019-03-R-win32-x86_64\work\locker\transaction-logs\
+	at com.atomikos.persistence.imp.LogFileLock.acquireLock(LogFileLock.java:59)
+	at com.atomikos.recovery.imp.FileSystemRepository.init(FileSystemRepository.java:55)
+	at com.atomikos.icatch.provider.imp.AssemblerImp.createCoordinatorLogEntryRepository(AssemblerImp.java:229)
+	at com.atomikos.icatch.provider.imp.AssemblerImp.createRepository(AssemblerImp.java:179)
+	... 33 common frames omitted
+

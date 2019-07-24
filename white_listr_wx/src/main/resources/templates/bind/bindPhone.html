@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>绑定号码</title>
+<link rel="stylesheet" type="text/css" href="../common/css/style.css">
+<script src="../common/js/jquery-1.7.1.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<meta name="viewport" content="maximum-scale=1.0, user-scalable=no">
+<style type="text/css">
+input{
+    border: none;
+}
+.box{
+    height: 50px;
+}
+.box input{
+    width: 100%;
+    height: 100px;
+    margin: 10px 0px;
+    background: url(../common/image/tel@3x.png) no-repeat;
+    background-color: #ffffff00;
+    background-position: 3px;
+    padding-left: 60px;
+    border: 1px solid #999999;
+    outline: none;
+    border-left-width:0px;
+    border-top-width:0px;
+    border-right-width:0px;
+    font-size: 50px
+}
+</style>
+</head>
+<body bgcolor="#eeeeee">
+	<div>
+		<div style="width: 100%;height: 300px">
+			<table style="width: 90%;height: 300px;margin-left: 5%;margin-top: 5%" >
+				<tr>
+					<td colspan="3" style="font-size: 50px">绑定号码</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<div class="box">
+				            <input type="number" id="phone" value=""/>
+				        </div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="width: 100%;height: 300px">
+			<div style="text-align:center;width: 100%;height: 300px">
+				<button class="sys-button" id="scanQRCode" onclick="putBindPhoneMessage()" style="margin-top: 15%;width: 90%;height: 120px;border-radius: 10px;"><font style="font-size: 45px">获取验证码</font></button>
+			</div>
+		</div>
+		
+	
+	</div>
+	<script type="text/javascript">
+	function putBindPhoneMessage(){
+		var phone=$("#phone").val();
+		var reg = new RegExp("\\s","g");
+		//去掉空格
+	    phone = phone.replace(reg,"");
+		if(checkPhone(phone) == true){
+			window.location.href = "/locker_wx/bind/bindPhoneMessagePage?phone=" + phone
+		}
+	}
+	function checkPhone(phone){ 
+	    if(!(/^1(3|4|5|6|7|8|9)\d{9}$/.test(phone))){ 
+	        alert("手机号码有误，请重填");  
+	        return false; 
+	    }else{
+	    	return true; 
+	    }
+	}
+	</script>
+</body>
+</html>

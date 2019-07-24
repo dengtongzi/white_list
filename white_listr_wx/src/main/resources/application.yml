@@ -1,0 +1,20 @@
+server:
+  port: 7070
+  max-http-header-size: 10240
+  servlet:
+    context-path: /whiteListWx
+  
+spring:
+  profiles:
+    active: dev
+  mvc:
+    view:
+      prefix: /templates
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    mode: HTML5
+mybatis-plus:
+  typeAliasesPackage: com.locker_wx.weixin.model

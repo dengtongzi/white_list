@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>预付押金</title>
+<link rel="stylesheet" type="text/css" href="../common/css/style.css">
+<script src="../common/js/jquery-1.7.1.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<meta name="viewport" content="maximum-scale=1.0, user-scalable=no">
+<style type="text/css">
+</style>
+</head>
+<body style="background: #ffffff">
+	<div>
+		<div style="width: 100%;height: 500px">
+			<table style="width: 90%;height: 600px;margin-left: 5%;" >
+				<tr>
+					<td colspan="1" style="font-size: 40px;width: 25%" valign="top" >预付押金：</td>
+					<td colspan="2" style="font-size: 40px">结算时，将扣除本次消费时长金额，剩余金额退还到钱包。</td>
+				</tr>
+				<tr>
+					<td colspan="1" style="font-size: 40px;width: 25%" valign="top" >计费标准：</td>
+					<td colspan="2" style="font-size: 40px">1小时2元。不足一小时则按一小时计算。</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="font-size: 40px">预付金额：</td>
+				</tr>
+				<tr align="center" style="height: 300px">
+					<td colspan="3" >
+						<span id="money" style="font-size: 80px;color: #FF9935">30</span><span style="font-size: 80px;color: #FF9935">.00 元</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="width: 100%;height: 300px">
+			<div style="text-align:center;width: 100%;height: 300px">
+				<button class="sys-button" id="scanQRCode" onclick="advancePay()" style="background-color: #29B00E;margin-top: 30%;width: 85%;height: 120px;border-radius: 10px;"><font style="font-size: 45px">支 付</font></button>
+			</div>
+		</div>
+		
+	
+	</div>
+	<script type="text/javascript">
+	
+	function advancePay(){
+		$.ajax({
+			type:"post",
+			url:"/locker_wx/amount/advancePay",
+			data:{
+				money: $("#money").text()
+			},
+			datatype:"json",
+			success:function(result){
+				var state = result.state;
+				if(state == '1'){
+					window.location.href = "/locker_wx/package/chooseCabinetPage?info=1234"
+				}else{
+					alert(result.msg);
+				}
+			},
+			error:function(){
+				alert("error");
+			}
+		});
+	}
+	</script>
+</body>
+</html>

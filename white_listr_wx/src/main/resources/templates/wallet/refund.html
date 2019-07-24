@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>退款</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="../layer_mobile/need/layer.css">
+<style type="text/css">
+.buttons-tab .button.active {
+	color: #333;
+	border-color: #FFBA00;
+	font-size: 0.9rem;
+}
+.card-header {
+	font-size: 0.8rem;
+	position: initial;
+	min-height: 1.2rem;
+	padding: 0.5rem 0.5rem 0.01rem 0.5rem;
+}
+.content-block {
+    padding: 0rem;
+    margin: 0rem 0 0rem 0;
+}
+.list-block ul {
+	background: #eee;
+}
+span{
+	color: #333;
+}
+</style>
+</head>
+<body>
+	<div class="content">
+		<div class="content-block" style="color: #333">
+			<div class="tabs">
+				<div id="tab1" class="tab active page" style="" data-ptr-distance="55">
+					<div class="content pull-to-refresh-content infinite-scroll infinite-scroll-bottom" id="tab1_content" data-distance="100">
+						<!-- 默认的下拉刷新层 -->
+					    <div class="pull-to-refresh-layer">
+					        <div class="preloader"></div>
+					        <div class="pull-to-refresh-arrow"></div>
+					    </div>
+				        <div class="content-block">
+				        	<div class="card-container">
+				                <div class="card" style="margin-bottom:0.5rem;border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">
+									<div class="card-header" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem">
+										<span>订单编号：1213787111</span> 
+										<span></span>
+									</div>
+									<div class="card-header" style="">
+										<span>柜子编号：0137112</span> 
+										<span></span>
+									</div>
+									<div class="card-header" style="">
+										<span>放置时间：11:00-18:00(共420分钟）</span> 
+										<span></span>
+									</div>
+									<div class="card-header" style="">
+										<span>退款金额：50.00元</span> 
+										<span></span>
+									</div>
+									<div class="card-header" style="padding: 0rem 0.5rem 0.5rem 0.5rem;">
+										<span></span> 
+										<span><button onclick="selectAlert('结算','settlement');" style="border-color: #333; color: #333; background: #FFF;font-size: 0.8rem" class="button">正在退款</button></span>
+									</div>
+								</div>
+			            	</div>
+				        </div>
+				    </div>
+		        </div>
+			</div>
+		</div>
+	</div>
+	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../layer_mobile/layer.js' charset='utf-8'></script>
+	<script type="text/javascript">
+		$.init();
+		
+		// 添加'refresh'监听器
+		$(document).on('refresh', '.pull-to-refresh-content',function(e) {
+			var str1="中途取件";
+			var str2="结算";
+			var pickOrSettlementStr1="pick";
+			var pickOrSettlementStr2="settlement";
+		    // 模拟2s的加载过程
+		    setTimeout(function() {
+		        var cardNumber = $(e.target).find('.card').length + 1;
+		        var cardHTML = '<div class="card" style="margin-bottom:0.5rem;border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">'+
+		        					'<div class="card-header" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem">'+
+										'<span>订单编号：1213787111</span> '+
+										'<span></span>'+
+									'</div>'+
+									'<div class="card-header" style="">'+
+										'<span>柜子编号：0137112</span> '+
+										'<span></span>'+
+									'</div>'+
+									'<div class="card-header" style="">'+
+										'<span>放置时间：11:00-18:00(共420分钟）</span> '+
+										'<span></span>'+
+									'</div>'+
+									'<div class="card-header" style="">'+
+										'<span>退款金额：50.00元</span> '+
+										'<span></span>'+
+									'</div>'+
+									'<div class="card-header" style="padding: 0rem 0.5rem 0.5rem 0.5rem;">'+
+										'<span></span> '+
+										'<span><button style="border-color: #333; color: #333; background: #FFF;font-size: 0.8rem" class="button">正在退款</button></span>'+
+									'</div>'+
+								'</div>';
+
+		        $(e.target).find('.card-container').prepend(cardHTML);
+		        // 加载完毕需要重置
+		        $.pullToRefreshDone('.pull-to-refresh-content');
+		    }, 500);
+		});
+		
+	</script>
+</body>
+</html>

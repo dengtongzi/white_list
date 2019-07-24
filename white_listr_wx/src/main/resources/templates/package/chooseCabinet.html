@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>存包</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<style type="text/css">
+</style>
+</head>
+<body>
+	<div class="page-group">
+		<div class="page page-current">
+			<div class="content">
+				<div class="content-block-title"
+					style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;">
+					<span style="vertical-align: top"><i class="iconfont" style="vertical-align: top">&#xe65d;</i>广州天河</span>
+					<span style="float: right;">营业时间:00:00-24:00</span>
+				</div>
+				<div class="card" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">
+					<div class="card-header" style="background: #FFC600; border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem">
+						<span>按时收费</span> <span>中途可以多次开门</span>
+					</div>
+					<div class="card-content">
+						<div class="card-content-inner" style="padding: .5rem;">押 金：30元</div>
+						<div class="card-content-inner" style="padding: .5rem;">收 费：3元/小时，1天20元封顶</div>
+					</div>
+				</div>
+				<div class="card" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">
+					<div class="card-header">选择柜子类型：</div>
+					<div class="card-content" style="position: initial;">
+						<div class="card-header" style="position: initial;">
+							<button onclick="clickIcon('big')" style="width: 3rem;height: 2rem;margin-left: 40%;border-color: #FF9935; color: #FFF; background: #FF9935;" class="button button-success">大</button>
+							<img onclick="clickIcon('big')" id="clickBig" alt="" width="30px" height="30px" src="../common/image/deselect.png">
+						</div>
+					</div>
+					<div class="card-content-inner" style="position: initial;">规格：长100CM 宽50CM 高50CM</div>
+				</div>
+				<div class="card" style="border-top-left-radius: 0.3rem; border-top-right-radius: 0.3rem; border-bottom-left-radius: 0.3rem; border-bottom-right-radius: 0.3rem">
+					
+					<div class="card-content" style="position: initial;">
+						<div class="card-header" style="position: initial;">
+							<button onclick="clickIcon('small')" style="width: 3rem;height: 2rem;margin-left: 40%;border-color: #FFC600; color: #FFF; background: #FFC600;" class="button button-success">小</button>
+							<img onclick="clickIcon('small')" id="clickSmall" alt="" width="30px" height="30px" src="../common/image/deselect.png">
+						</div>
+					</div>
+					<div class="card-content-inner" style="position: initial;">规格：长70CM 宽40CM 高40CM</div>
+				</div>
+				<div class="content-block-title" style="margin: 0.5rem 0.5rem 0.5rem 0.5rem;">
+					<span style="">大柜子剩余3个，小柜子剩余9个</span>
+				</div>
+				<button onclick="clickNext()" style="width: 94%;height: 2.2rem;margin-left: 3%;margin-top: 8%;border-color: #29B00E; color: #FFF; background: #29B00E;" class="button button-success">下 一 步</button>
+			</div>
+		</div>
+	</div>
+
+	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type="text/javascript">
+		var selectType = "0";
+		function clickIcon(type){
+			if(type == "big"){
+				$("#clickBig").attr('src',"../common/image/select.png"); 
+				$("#clickSmall").attr('src',"../common/image/deselect.png"); 
+				selectType = "2";
+			}else{
+				$("#clickBig").attr('src',"../common/image/deselect.png"); 
+				$("#clickSmall").attr('src',"../common/image/select.png");
+				selectType = "1";
+			}
+		}
+		function clickNext(){
+			if(selectType == "0"){
+				alert("请选择柜子类型");
+			}else{
+				window.location.href = "/locker_wx/package/selectSizePage?info=1234"
+			}
+		}
+	</script>
+</body>
+</html>

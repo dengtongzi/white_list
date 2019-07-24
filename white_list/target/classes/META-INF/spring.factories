@@ -1,0 +1,10 @@
+# AutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.locker.core.config.AopAutoConfiguration,\
+cn.locker.core.config.RedisAutoConfiguration,\
+cn.locker.core.config.FastjsonAutoConfiguration,\
+cn.locker.core.config.MybatisDataSourceAutoConfiguration,\
+cn.locker.core.config.PropertiesAutoConfiguration,\
+cn.locker.core.config.UtilAutoConfiguration,\
+cn.locker.core.config.WebAutoConfiguration,\
+cn.locker.core.config.DbInitializerAutoConfiguration

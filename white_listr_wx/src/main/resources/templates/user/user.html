@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>个人中心</title>
+	<link rel="stylesheet" type="text/css" href="../common/css/style.css">
+	<script src="../common/js/jquery-1.7.1.min.js"></script>
+<body>
+	<div class="">
+		<div class="">
+			<div class="aui-l-content">
+				<div class="devider"></div>
+				<div class="devider b-line"></div>
+				<div class="aui-menu-list aui-menu-list-clear">
+					<ul>
+						<li class="b-line" style="width: 100%;height: 105px">
+							<div class="aui-flex">
+	                            <div class="">
+	                                <img height="80px" width="80px" name="headImgUrl" style="border-radius: 50px;" src="" th:src="@{${headImgUrl}}" alt="">
+	                            </div>
+	                            <div class="aui-flex-box">
+	                                <h2 align="left"><span id="nickname" th:text="${nickname}"></span></h2>
+	                                <h3 align="left" style="width: 200px">联系电话：<span id="phone">188167832330</span></h3>
+	                            </div>
+	                        </div>
+						</li>
+						<div class="devider"></div>
+						<div class="devider b-line"></div>
+						<li class="b-line">
+							<a href="/locker_wx/wallet/walletindexPage">
+								<div class="aui-icon"><img src="../common/image/my-money.png"></div>
+								<h3>余额</h3>
+								<div class="aui-time"><i class="aui-jump"></i></div>
+							</a>
+						</li>
+						<li class="b-line">
+							<a href="javascript:;">
+								<div class="aui-icon"><img src="../common/image/my-order.png3"></div>
+								<h3>订单</h3>
+								<div class="aui-time"><i class="aui-jump"></i></div>
+							</a>
+						</li>
+						<li class="b-line">
+							<a href="javascript:;">
+								<div class="aui-icon"><img src="../common/image/my-discount.png"></div>
+								<h3>优惠券</h3>
+								<div class="aui-time"><i class="aui-jump"></i></div>
+							</a>
+						</li>
+						<div class="devider"></div>
+						<div class="devider b-line"></div>
+						<li class="b-line">
+							<a href="javascript:;">
+								<div class="aui-icon"><img src="../common/image/my-hlep.png"></div>
+								<h3>帮助</h3>
+								<div class="aui-time"><i class="aui-jump"></i></div>
+							</a>
+						</li>
+						<div class="devider"></div>
+						<div class="devider b-line"></div>
+						<li class="b-line">
+							<a href="javascript:;">
+								<div class="aui-icon"><img src="../common/image/my-about-us.png"></div>
+								<h3>关于我们</h3>
+								<div class="aui-time"><i class="aui-jump"></i></div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+	</script>
+</body></html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>绑定号码</title>
+<link rel="stylesheet" type="text/css" href="../common/css/style.css">
+<script src="../common/js/jquery-1.7.1.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<meta name="viewport" content="maximum-scale=1.0, user-scalable=no">
+<style lang="less" scoped>
+.container {
+	width: 90%;
+	position: absolute;
+	text-align: center;
+}
+
+.container p {
+	font-family: "微软雅黑";
+	color: #888;
+}
+
+.val-box {
+	display: inline-block;
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	position: relative;
+	background: #eeeeee;
+}
+
+.val-box input[type=text] {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100px;
+	width: 100%;
+	opacity: 0.9;
+	z-index: -999;
+	outline: none;
+	color: transparent;
+	margin-left: -100%;
+	text-indent: -999em;
+}
+
+.val-box div {
+	height: 100px;
+	width: 15.5%;
+	border: 1px solid #4caf50;
+	border-radius: 5px;
+	float: left;
+	margin: 0px 5px;
+	z-index: 5;
+	font-size: 4em;
+	font-family: arial;
+	font-weight: 530;
+	text-align: center;
+	line-height: 1.5em;
+	cursor: text;
+}
+
+.val-box .available {
+	border-color: #0081db;
+}
+
+input[type=button] {
+	width: 250px;
+	height: 60px;
+	background-color: #ff3000;
+	border: 0;
+	border-radius: 10px;
+	color: #fff;
+	font-size: 30px
+}
+
+input[type=button].on {
+	width: 250px;
+	height: 60px;
+	background-color: #eee;
+	color: #808080;
+	cursor: not-allowed;
+	font-size: 30px
+}
+</style>
+</head>
+<body bgcolor="#eeeeee">
+	<div>
+		<div style="width: 100%; height: 300px">
+			<table
+				style="width: 90%; height: 300px; margin-left: 5%; margin-top: 5%">
+				<tr>
+					<td colspan="3" style="font-size: 50px">验证码已发送至</td>
+				</tr>
+				<tr>
+					<td colspan="2" style="font-size: 40px"><span id="phone" th:text="${phone}"></span></td>
+					<td align="right">
+						<input type="button" id="getSmsCode" style="font-size: 30px" value="获取验证码" onclick="btnCheck()">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<div class="container" id="test">
+							<div class="val-box" id="val-box">
+								<input id="val-code-input" type="text"
+									maxlength="6" onkeyup="checkForNum(this)"
+									onselectstart="return false;" onblur="checkForNum(this)" />
+								<div name="val-item"></div>
+								<div name="val-item"></div>
+								<div name="val-item"></div>
+								<div name="val-item"></div>
+								<div name="val-item"></div>
+								<div name="val-item"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div style="width: 100%; height: 300px">
+			<div style="text-align: center; width: 100%; height: 300px">
+				<button class="sys-button" onclick="bindPhone();" style="margin-top: 25%; width: 90%; height: 120px; border-radius: 10px;">
+					<font style="font-size: 45px">绑 定</font>
+				</button>
+				<a href="javascript:history.back(-1)"
+					style="margin-top: 5%; width: 90%; height: 120px; border-radius: 10px; color: #4f4f4f; float: left; margin-left: 5%;">
+					<font style="font-size: 45px">返 回</font>
+				</a>
+			</div>
+		</div>
+
+
+	</div>
+	<script type="text/javascript">
+	function btnCheck() {
+		putBindPhoneMessage();
+	}
+	
+	function putBindPhoneMessage(){
+		$.ajax({
+			type:"post",
+			url:"/locker_wx/bind/bindPhoneSendSms",
+			data:{
+				phone: $("#phone").text()
+			},
+			datatype:"json",
+			success:function(result){
+				var state = result.state;
+				if(state == '0'){
+					var time = 60;
+					$(this).addClass("on");
+				  	$("#getSmsCode").val(time + " 秒后重新获取");
+				  	$(this).attr("disabled", true);
+				  	var timer = setInterval(function() {
+					   	if (time == 0) {
+						    clearInterval(timer);
+						    $("#getSmsCode").attr("disabled", false);
+						    $("#getSmsCode").val("重新获取");
+						    $("#getSmsCode").removeClass("on");
+					   	} else {
+						    $('#getSmsCode').val(time + " 秒后重新获取");
+						    time--;
+					   	}
+				  	}, 1000);
+				}else{
+					alert(result.msg);
+				}
+			},
+			error:function(){
+				alert("error");
+			}
+		});
+	}
+	
+	function bindPhone(){
+		$.ajax({
+			type:"post",
+			url:"/locker_wx/bind/bindPhone",
+			data:{
+				phone: $("#phone").text(),
+				code: $("#val-code-input").val()
+			},
+			datatype:"json",
+			success:function(result){
+				var state = result.state;
+				if(state == '1'){
+					alert(result.data);
+					window.location.href = "/locker_wx/wx_user/userinfo"
+				}else{
+					alert(result.msg);
+				}
+			},
+			error:function(){
+				alert("error");
+			}
+		});
+	}
+	
+	 $(() => {
+         var valCodeInput = $('#val-code-input');
+         var valCodeItems = $("div[name='val-item']");
+         var regex = /^[\d]+$/;
+         var valCodeLength = 0;
+         $('#val-box').on('click',()=>{
+             valCodeInput.focus();
+         })
+         valCodeInput.on('input propertychange change', (e) => {
+             valCodeLength = valCodeInput.val().length;
+             if(valCodeInput.val() && regex.test(valCodeInput.val())) {
+                 $(valCodeItems[valCodeLength - 1]).addClass('available');
+                 $(valCodeItems[valCodeLength - 1]).text(valCodeInput.val().substring(valCodeLength - 1, valCodeLength));
+             }
+         })
+         $(this).on('keyup', (e) => {
+             if(e.keyCode === 8) {
+                 $(valCodeItems[valCodeLength]).removeClass('available');
+                 $(valCodeItems[valCodeLength]).text("");
+             }
+         });
+         btnCheck();
+     })
+     function checkForNum(obj) {
+         obj.value = obj.value.replace(/[\D]/g, '');
+     }
+	</script>
+</body>
+</html>

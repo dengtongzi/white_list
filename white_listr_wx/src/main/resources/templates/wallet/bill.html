@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>我的生活</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+	<style type="text/css">
+	.content-block {
+		margin:0.5rem 0;
+    	padding: 0 .75rem;
+    }
+	</style>
+  </head>
+  <body>
+    <div class="page-group">
+        <div class="page page-current">
+        <div class="content" style="background-color: white;">
+			<div class="buttons-tab fixed-tab" style="background: #eee;">
+				<a href="#tab1" class="tab-link active button" style="color: #333;border-color: #AAAAAA;">账 单 明 细</a>
+			</div>
+			<div class="content-block">
+				<div class="tabs">
+					<div id="tab1" class="tab active">
+						<div class="content-block">
+				        	<div class="card-container" id="tab2Ul">
+				        		
+				        	</div>
+				        </div>
+						<!-- 加载提示符 -->
+						<div class="content-block-title" style="margin: 0rem 1rem 1rem 1rem;">
+							<span style="margin-left: 35%" id="getMore" onclick="getMore()">点击获取更多 >></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        </div>
+    </div>
+
+    <script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type="text/javascript">
+		$.init();
+		// 每次加载添加多少条目
+		var itemsPerLoad = 20;
+		//预先加载20条
+		addItems(itemsPerLoad, 0);
+		function addItems(number, lastIndex) {
+			// 生成新条目的HTML
+			var html = '';
+			for (var i = lastIndex + 1; i <= lastIndex + number; i++) {
+			html += '<table style="width: 100%">'+
+						'<tr>'+
+							'<td style="width: 80%;font-size: 0.8rem;color: #333">预付押金</td>'+
+							'<td style="width: 20%;font-size: 1rem;color: #333" rowspan="2" align="center">-30.00</td>'+
+						'</tr>'+
+						'<tr>'+
+							'<td style="width: 80%;font-size: 0.7rem">7月9日 18:39</td>'+
+						'</tr>'+
+					'</table>'+
+					'<hr style=" height:2px;border:none;border-top:1px solid  #eee;" />';
+			}
+			// 添加新条目
+			$('#tab2Ul').append(html);
+		}
+		function getMore(){
+			addItems(itemsPerLoad, 0);
+		}
+		
+	</script>
+  </body>
+</html>

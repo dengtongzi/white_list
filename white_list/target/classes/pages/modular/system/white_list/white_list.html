@@ -1,0 +1,76 @@
+@layout("/common/_container.html",{js:["/assets/modular/system/white_list/white_list.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">白名单用户</span>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input id="phone" class="layui-input" type="text" placeholder="手机号"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="userName" class="layui-input" type="text" placeholder="用户名"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="addUser" class="layui-input" type="text" placeholder="添加人"/>
+                            </div>
+                            <div class="layui-inline">
+                                <input id="bankCardNumber" class="layui-input" type="text" placeholder="中国银行卡号"/>
+                            </div>
+                            <div class="layui-inline">
+								<select id="subordinateBranch" name="subordinateBranch" lay-verify="required" lay-search="">
+									<option value="">请选择所属支行</option>
+									<option value="1">layer</option>
+									<option value="2">form</option>
+									<option value="3">layim</option>
+									<option value="4">element</option>
+									<option value="5">laytpl</option>
+									<option value="6">upload</option>
+									<option value="7">laydate</option>
+									<option value="8">laypage</option>
+									<option value="9">flow</option>
+									<option value="10">util</option>
+									<option value="11">code</option>
+									<option value="12">tree</option>
+									<option value="13">layedit</option>
+									<option value="14">nav</option>
+									<option value="15">tab</option>
+									<option value="16">table</option>
+									<option value="17">select</option>
+									<option value="18">checkbox</option>
+									<option value="19">switch</option>
+									<option value="20">radio</option>
+								</select>
+    						</div>
+                            <div class="layui-inline" style="width: 300px">
+						        <input type="text" class="layui-input" id="addTime" placeholder="添加时间">
+						    </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
+                                <button id="btnImp" class="layui-btn icon-btn"><i class="layui-icon">&#xe681;</i>导入</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="whiteListTable" lay-filter="whiteListTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="tableBar">
+	@if(shiro.hasPermission("/mgr/edit")){
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    @}
+    @if(shiro.hasPermission("/mgr/delete")){
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    @}
+</script>
+@}

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: white_list
+Implementation-Version: 1.0.0
+Built-By: deng
+Implementation-Vendor-Id: cn.locker
+Build-Jdk: 1.8.0_77
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/white_list
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,60 @@
+@layout("/common/_container.html",{bg:"bg-white",title:"概览"}){
+<!-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>通知公告</legend>
+</fieldset> 
+<div style="padding: 20px; background-color: #F2F2F2;">
+	<div class="layui-row layui-col-space15">
+		@for(notice in noticeList){
+	 		<div class="layui-col-md12">
+	     <div class="layui-card">
+	       <div class="layui-card-header">${notice.title}</div>
+	       <div class="layui-card-body">
+	         	${notice.content}
+	       </div>
+	     </div>
+	   </div>
+	  @}
+	</div>
+</div> -->
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>今日收入</legend>
+</fieldset> 
+<div style="padding: 20px; background-color: #F2F2F2;">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header" align="center" style="font-size: 1.2rem;">今日流水金额</div>
+        <div class="layui-card-body" align="center" style="height: 5rem;"><span style="display: block;margin-top: 1.5rem;font-size: 2.5rem">12.00</span></div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header" align="center" style="font-size: 1.2rem;">今日充值金额</div>
+        <div class="layui-card-body" align="center" style="height: 5rem;"><span style="display: block;margin-top: 1.5rem;font-size: 2.5rem">12.00</span></div>
+      </div>
+    </div>
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header" align="center" style="font-size: 1.2rem;">今日退款金额</div>
+        <div class="layui-card-body" align="center" style="height: 5rem;"><span style="display: block;margin-top: 1.5rem;font-size: 2.5rem">12.00</span></div>
+      </div>
+    </div>
+  </div>
+</div> 
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+  <legend>机柜状态</legend>
+</fieldset>
+<div style="padding: 20px; background-color: #F2F2F2;">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header" style="height: 2.5rem">编号:120012645665<button type="button" style="float: right;margin-top: 0.6rem;" class="layui-btn layui-btn-normal layui-btn-xs">在 线</button></div>
+        <div class="layui-card-body">
+	    广东省广州市天河区东站路1号
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</div> 
+@}

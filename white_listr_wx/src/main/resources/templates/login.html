@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>登录</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="layer_mobile/need/layer.css">
+<link rel="stylesheet" href="iconfont/iconfont.css">
+<style type="text/css">
+	.list-block .item-content {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+</style>
+</head>
+<body>
+	<div class="page-group">
+		<div class="page page-current" style="background: white;">
+			<div class="content" align="center">
+				<div class="content-block-title" style="font-size: 0.9rem;color: #333">账号密码登录</div>
+				<div class="list-block" style="margin-top: 2rem">
+					<div class="item-content">
+						<div class="item-inner">
+							<div class="item-title" style="width: 20%"><i class="iconfont" style="color: gray;font-size: 1rem;">&#xe671;</i></div>
+							<div class="item-input">
+								<input type="text" placeholder="请输入用户">
+							</div>
+						</div>
+					</div>
+					<div class="item-content" style="margin-top: 1rem">
+						<div class="item-inner">
+							<div class="item-title" style="width: 20%"><i class="iconfont" style="color: gray;font-size: 1rem;">&#xe65e;</i></div>
+							<div class="item-input">
+								<input type="text" placeholder="请输入密码">
+							</div>
+						</div>
+					</div>
+				</div>
+				<button onclick="login()" style="width: 90%;height: 2.2rem;margin-top: 2rem;border-color: #b80404; color: #FFF; background: #b80404;" class="button button-success">登 录</button>
+			</div>
+		</div>
+	</div>
+	<script type='text/javascript' src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='layer_mobile/layer.js' charset='utf-8'></script>
+	<script type="text/javascript">
+		$.init();
+		function login(){
+			
+		}
+	</script>
+</body>
+</html>
